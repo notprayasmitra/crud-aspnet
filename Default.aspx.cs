@@ -90,8 +90,6 @@ namespace crud_aspnet
                             lblStatus.Text = "A database error occurred: " + ex.Message;
                         }
                     }
-
-                    cmd.ExecuteNonQuery();
                 }
             }
             ClearForm();
