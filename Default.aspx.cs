@@ -41,6 +41,8 @@ namespace crud_aspnet
         // CREATE AND UPDATE
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            lblStatus.Text = "";
+
             using (MySqlConnection conn = new MySqlConnection(connStr))
             {
                 conn.Open();
@@ -52,7 +54,7 @@ namespace crud_aspnet
                 }
                 else
                 {
-                    query = "UPDATE students SET first_name=@FirstName, last_name=@LastName, email=@Email, major=@major WHERE id=@Id";
+                    query = "UPDATE students SET first_name=@FirstName, last_name=@LastName, email=@Email, major=@Major WHERE id=@Id";
                 }
 
                 using (MySqlCommand cmd = new MySqlCommand( query, conn))
@@ -65,6 +67,28 @@ namespace crud_aspnet
                     if (!string.IsNullOrEmpty(hfStudentId.Value))
                     {
                         cmd.Parameters.AddWithValue("@Id", hfStudentId.Value);
+                    }
+
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+
+                        // If execution succeeds, clear form and refresh list
+                        ClearForm();
+                        BindGrid();
+                    }
+                    catch (MySqlException ex)
+                    {
+                        // Number 1062 is MySQL's specific code for duplicate entry
+                        if (ex.Number == 1062)
+                        {
+                            lblStatus.Text = "Error: A student with this email address already exists!";
+                        }
+                        else
+                        {
+                            // For handling any other error messages
+                            lblStatus.Text = "A database error occurred: " + ex.Message;
+                        }
                     }
 
                     cmd.ExecuteNonQuery();

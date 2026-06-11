@@ -26,6 +26,9 @@
                     <label>Major:</label>
                     <asp:TextBox ID="txtMajor" runat="server" CssClass="form-control"></asp:TextBox>
                 </div>
+                <div style="margin-top: 10px">
+                    <asp:Label ID="lblStatus" runat="server" ForeColor="Red" Font-Bold="true"></asp:Label>
+                </div>
                 <br />
                 <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="btn btn-primary" />
                 <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" CssClass="btn btn-primary" />
@@ -44,7 +47,7 @@
                         <asp:BoundField DataField="major" HeaderText="Major" />
                         <asp:TemplateField HeaderText="Actions">
                             <ItemTemplate>
-                                <asp:LinkButton ID="btnEdit" runat="server" CommandName="EditRow" CommandArguments="<%# ((GridViewRow)Container).RowIndex %>" CssClass="text-primary">Edit</asp:LinkButton> | 
+                                <asp:LinkButton ID="btnEdit" runat="server" CommandName="EditRow" CommandArgument='<%# ((GridViewRow)Container).RowIndex %>' CssClass="text-primary">Edit</asp:LinkButton> | 
                                 <asp:LinkButton ID="btnDelete" runat="server" CommandName="Delete" OnClientClick="return confirm('Are you sure you want to delete this record?');" CssClass="text-danger">Delete</asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateField>
