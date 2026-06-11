@@ -12,7 +12,44 @@
 
                 <div class="form-group">
                     <label>First Name:</label>
+                    <asp:TextBox ID="txtFirstName" runat="server" CssClass="form-control"></asp:TextBox>
                 </div>
+                <div class="form-group" style="margin-top: 10px">
+                    <label>Last Name:</label>
+                    <asp:TextBox ID="txtLastName" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
+                <div class="form-group" style="margin-top: 10px">
+                    <label>Email:</label>
+                    <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" TextMode="Email"></asp:TextBox>
+                </div>
+                <div class="form-group" style="margin-top: 10px">
+                    <label>Major:</label>
+                    <asp:TextBox ID="txtMajor" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
+                <br />
+                <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="btn btn-primary" />
+                <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" CssClass="btn btn-primary" />
+            </div>
+
+            <div class="col-md-8">
+                <h4>Student Roster</h4>
+                <asp:GridView ID="gvStudents" runat="server" AutoGenerateColumns="False" DataKeyNames="id"
+                    OnRowDeleting="gvStudents_RowDeleting" OnRowCommand="gvStudents_RowCommand"
+                    CssClass="table table-striped table-bordered">
+                    <Columns>
+                        <asp:BoundField DataField="id" HeaderText="ID" ReadOnly="True" />
+                        <asp:BoundField DataField="first_name" HeaderText="First Name" />
+                        <asp:BoundField DataField="last_name" HeaderText="Last Name" />
+                        <asp:BoundField DataField="email" HeaderText="Email" />
+                        <asp:BoundField DataField="major" HeaderText="Major" />
+                        <asp:TemplateField HeaderText="Actions">
+                            <ItemTemplate>
+                                <asp:LinkButton ID="btnEdit" runat="server" CommandName="EditRow" CommandArguments="<%# ((GridViewRow)Container).RowIndex %>" CssClass="text-primary">Edit</asp:LinkButton> | 
+                                <asp:LinkButton ID="btnDelete" runat="server" CommandName="Delete" OnClientClick="return confirm('Are you sure you want to delete this record?');" CssClass="text-danger">Delete</asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                </asp:GridView>
             </div>
         </div>
     </div>
